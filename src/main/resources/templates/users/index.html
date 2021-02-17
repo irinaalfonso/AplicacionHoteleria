@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>POO</title>
+</head>
+<body>
+<h1>Lista de usuarios</h1>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Email</th>
+    </tr>
+    </thead>
+    <tr th:each="user: ${users}">
+        <td th:text="${user.email}"></td>
+    </tr>
+</table>
+<h2><a class="badge badge-primary" th:href="@{users/new}">Create new user</a></h2>
+<h2><a href="/bookings/availability"> Check rooms availability</a></h2>
+<h2><a href="/logout">Logout</a></h2>
+</body>
+</html>

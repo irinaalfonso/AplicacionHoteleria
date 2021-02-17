@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Availability</title>
+</head>
+<body>
+<div><h1>Availability</h1></div>
+<form action="#" th:action="@{/bookings/availability}" th:object="${roomAvailability}" method="post">
+    <label>Check In</label>
+    <input type="text" th:field="*{checkIn}"/>
+
+    <label>Check Out</label>
+    <input type="text" th:field="*{checkOut}"/>
+
+    <label>Occupancy</label>
+    <input type="text" th:field="*{occupancy}"/>
+
+    <button type="submit"> Check </button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Occupancy</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${roomsAvailable.empty}"> <td colspan="3">No rooms available</td></tr>
+    <tr th:each="room: ${roomsAvailable}">
+        <td><span th:text="${room.name}"> Name </span></td>
+        <td><span th:text="${room.occupancy}"> Occupancy </span></td>
+        <td><span th:text="${room.price}"> Price </span></td>
+        <td><form action="#" th:action="@{/bookings/new}" th:object="${booking}" method="post">
+            <input type="hidden" th:name="checkIn" th:value="${roomAvailability.checkIn}"/>
+            <input type="hidden" th:name="checkOut" th:value="${roomAvailability.checkOut}"/>
+            <input type="hidden" th:name="occupancy" th:value="${roomAvailability.occupancy}"/>
+            <input type="hidden" th:name="roomId" th:value="${room.id}"/>
+            <button type="submit">Book</button>
+        </form></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
